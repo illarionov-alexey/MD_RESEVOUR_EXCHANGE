@@ -1,0 +1,9 @@
+md_num_iter: 400
+md_iter_delay: 0.1
+md_lambda_values: [0,0.1,0.2,0.4]
+
+reservoir_num_iter: 10
+reservoir_sending_interval: 3
+reservoir_trr_file: 'wat5_arrow_1k.trr'
+reservoir_gro_file: 'wat5.gro'
+reservoir_lambda_values: [0,0.4]
