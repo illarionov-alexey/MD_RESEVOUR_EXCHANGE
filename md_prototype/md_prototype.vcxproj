@@ -152,10 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\md_prototype.cpp" />
+    <ClCompile Include="..\yaml\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\md_prototype.hpp" />
     <ClInclude Include="..\mpi_helper.hpp" />
+    <ClInclude Include="..\yaml\Yaml.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

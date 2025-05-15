@@ -41,12 +41,18 @@
     <ClCompile Include="..\md_prototype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\yaml\Yaml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\md_prototype.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\mpi_helper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\yaml\Yaml.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <iomanip>
 //#include <yaml-cpp/yaml.h>
 #include "md_prototype.hpp"
+#include "yaml/Yaml.hpp"
 
 CoordReceiverAlgorithm::CoordReceiverAlgorithm(MPI_Comm comm, int rank, int partner_rank)
     : comm_(comm), rank_(rank), partner_rank_(partner_rank)
@@ -70,6 +71,23 @@ struct Config
     float md_iter_delay;
 };
 
+std::vector<float> parseFloatVector(const std::string& str) {
+    // Check for valid input format: starts with '[' and ends with ']'
+    if (str.empty() || str.front() != '[' || str.back() != ']') {
+        throw std::invalid_argument("Input string must start with '[' and end with ']'");
+    }
+
+    std::vector<float> vec;
+    std::stringstream ss(str.substr(1, str.size() - 2));  // Remove square brackets and use stringstream
+
+    for (std::string temp; std::getline(ss, temp, ','); ) {
+        // Convert each trimmed string to float and add to vector
+        vec.push_back(std::stof(temp.erase(0, temp.find_first_not_of(" \t")).erase(temp.find_last_not_of(" \t") + 1)));
+    }
+
+    return vec;
+}
+
 class ConfigPrototype {
 public:
     ConfigPrototype(const std::string& file_name = "config.yaml")
@@ -78,6 +96,20 @@ public:
         md_num_iter = config["md_num_iter"].as<int>(3);
         md_iter_delay = config["receiving_interval"].as<float>(0.1)*1000;
         md_lambda_values = config["md_lambda_values"].as<std::vector<float>>(std::vector<float>());
+        */
+        Yaml::Node root;
+        Yaml::Parse(root, file_name.c_str());
+        md_num_iter = root["md_num_iter"].As<int>();
+        md_iter_delay = root["md_iter_delay"].As<float>();
+        md_lambda_values = parseFloatVector(root["md_lambda_values"].As<std::string>());
+        /*
+        if (lamdas.IsSequence())
+        {
+            for (auto i = 0 ; i != lamdas.Size();i++)
+            {
+                md_lambda_values.push_back(lamdas[i].As<float>());
+            }
+        }
         */
         md_num_iter = 3;
         md_iter_delay = 0.1 * 1000;
